@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyNotes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <button class="icon-btn" id="sidebarToggle" aria-label="Toggle sidebar">☰</button>
+        <h1>MyNotes</h1>
+      </div>
+
+      <div class="semester-box">
+        <label>Currently</label>
+        <select id="semesterSelect">
+          <option>1st Sem 2026</option>
+          <option>2nd Sem 2026</option>
+        </select>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-item active">⌂ <span>Home</span></button>
+        <button class="nav-item">▤ <span>All Notes</span></button>
+        <button class="nav-item">🔔 <span>Reminders</span></button>
+      </nav>
+
+      <div class="subjects-section">
+        <div class="section-title">
+          <span>Subjects</span>
+        </div>
+
+        <div id="subjectList" class="subject-list"></div>
+
+        <div class="subject-controls">
+          <input id="newSubjectInput" type="text" placeholder="Course code" maxlength="20" />
+          <input id="newSubjectColor" class="subject-color-input" type="color" value="#4f7cff" title="Subject color" />
+          <button id="addSubjectBtn">Add</button>
+        </div>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button class="nav-item">▣ <span>Archive</span></button>
+        <button class="nav-item">⚙ <span>Settings</span></button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Open menu">☰</button>
+      <header class="topbar">
+        <div class="search-wrap">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="Search notes..." />
+        </div>
+        <button id="accountBtn" class="account-btn">Sign in</button>
+      </header>
+
+      <section class="date-strip">
+        <button id="prevDate" class="date-arrow">←</button>
+        <button class="date-chip muted" id="dateBefore"></button>
+        <button class="date-chip active" id="currentDateChip"></button>
+        <button class="date-chip muted" id="dateAfter"></button>
+        <button id="nextDate" class="date-arrow">→</button>
+      </section>
+
+      <section class="reminder-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Reminders</h2>
+            <p id="reminderDateText"></p>
+          </div>
+          <button id="addReminderBtn" class="ghost-btn">+ Add reminder</button>
+        </div>
+
+        <div class="reminder-row-wrap">
+          <button class="scroll-btn" id="scrollReminderLeft">‹</button>
+          <div class="reminder-row" id="reminderRow"></div>
+          <button class="scroll-btn" id="scrollReminderRight">›</button>
+        </div>
+      </section>
+
+      <section class="editor-card">
+        <textarea id="noteInput" placeholder="Start writing your note..."></textarea>
+        <div class="editor-footer">
+          <div class="fake-tools">B &nbsp; <i>I</i> &nbsp; U &nbsp; ☷ &nbsp; 🔗 &nbsp; 🖼 &nbsp; 📎</div>
+          <button id="saveNoteBtn" class="primary-btn">Save Note</button>
+        </div>
+      </section>
+
+      <section class="notes-section">
+        <div class="notes-head">
+          <h2 id="notesTitle">Notes</h2>
+          <select id="sortSelect">
+            <option value="newest">Sort: Newest</option>
+            <option value="oldest">Sort: Oldest</option>
+          </select>
+        </div>
+        <div id="notesList" class="notes-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="subjectModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>Select Subject</h3>
+        <button class="icon-btn" id="closeSubjectModal">✕</button>
+      </div>
+      <div id="subjectOptions" class="subject-options"></div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="reminderModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>Add Reminder</h3>
+        <button class="icon-btn" id="closeReminderModal">✕</button>
+      </div>
+
+      <input id="reminderText" class="modal-input" type="text" placeholder="Reminder title" />
+      <input id="reminderTime" class="modal-input" type="time" />
+      <select id="reminderSubject" class="modal-input"></select>
+      <button id="saveReminderBtn" class="primary-btn full">Save Reminder</button>
+    </div>
+  </div>
+
+
+  <div class="modal-backdrop hidden" id="authModal">
+    <div class="modal auth-modal">
+      <div class="modal-head">
+        <div>
+          <h3 id="authTitle">Sign in to MyNotes</h3>
+          <p class="modal-subtext">Sync your notes, reminders, and subjects across devices.</p>
+        </div>
+        <button class="icon-btn" id="closeAuthModal">✕</button>
+      </div>
+
+      <input id="authEmail" class="modal-input" type="email" placeholder="Email address" autocomplete="email" />
+      <input id="authPassword" class="modal-input" type="password" placeholder="Password" autocomplete="current-password" />
+
+      <div id="authMessage" class="auth-message"></div>
+
+      <div class="auth-actions">
+        <button id="loginBtn" class="primary-btn full">Sign In</button>
+        <button id="registerBtn" class="ghost-btn full">Create Account</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="firebaseSetupBanner" class="setup-banner hidden">
+    Firebase is not configured yet. Add your Firebase config in <strong>firebase-config.js</strong>.
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
